@@ -456,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPoint: {fileID: 1349837945}
   cameraLink: {fileID: 957914794}
-  skyDistance: 25
+  skyDistance: 30
 --- !u!1001 &451409795
 PrefabInstance:
   m_ObjectHideFlags: 0
