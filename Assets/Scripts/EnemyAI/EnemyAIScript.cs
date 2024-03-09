@@ -10,6 +10,7 @@ public class EnemyAIScript : MonoBehaviour
     private NavMeshAgent _navMeshAgent;
     private bool _isPlayerNoticed;
     public float viewAngle;
+    public float damage = 30;
     void Start()
     {
         InitComponentLinks();
@@ -23,6 +24,7 @@ public class EnemyAIScript : MonoBehaviour
         NoticePlayerUpdate();
         ChaseUpdate();
         PatrolUpdate();
+        AttackUpdate();
     }
 
     void NoticePlayerUpdate()
@@ -55,7 +57,7 @@ public class EnemyAIScript : MonoBehaviour
     {
         if (!_isPlayerNoticed)
         {
-            if (_navMeshAgent.remainingDistance == 0)
+            if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
             {
                 PickUpNewPatrolPoint();
             }
@@ -66,6 +68,17 @@ public class EnemyAIScript : MonoBehaviour
         if (_isPlayerNoticed)
         {
             _navMeshAgent.destination = player.transform.position;
+        }
+    }
+
+    private void AttackUpdate()
+    {
+        if (_isPlayerNoticed)
+        {
+            if(_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+            {
+                player.GetComponent<PlayerHealth>().DealDamage(damage * Time.deltaTime);
+            }
         }
     }
 }
